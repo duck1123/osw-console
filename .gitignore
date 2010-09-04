@@ -3,3 +3,5 @@
 *.properties
 bin/
 build/
+target/
+semantic.cache
