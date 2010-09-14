@@ -59,6 +59,7 @@ import org.onesocialweb.model.activity.ActivityObject;
 import org.onesocialweb.model.activity.ActivityVerb;
 import org.onesocialweb.model.activity.DefaultActivityFactory;
 import org.onesocialweb.model.atom.AtomFactory;
+import org.onesocialweb.model.atom.AtomGenerator;
 import org.onesocialweb.model.atom.DefaultAtomFactory;
 import org.onesocialweb.model.relation.DefaultRelationFactory;
 import org.onesocialweb.model.relation.Relation;
@@ -79,6 +80,7 @@ import org.onesocialweb.model.vcard4.VCard4Factory;
 import org.onesocialweb.model.vcard4.exception.CardinalityException;
 import org.onesocialweb.model.vcard4.exception.UnsupportedFieldException;
 import org.onesocialweb.smack.OswServiceFactoryImp;
+import org.onesocialweb.xml.writer.ActivityXmlWriter;
 
 import com.google.common.collect.ImmutableList;
 
@@ -943,6 +945,12 @@ public class ConsoleClient implements InboxEventHandler {
         entry.addObject(object);
         entry.setAclRules(defaultRules);
         entry.setTitle(message);
+
+        AtomGenerator generator = atomFactory.generator();
+        generator.setUri("http://github.com/onesocialweb/osw-console");
+        generator.setVersion("0.7");
+        generator.setText("osw-console");
+        entry.setGenerator(generator);
 
         try {
             service.postActivity(entry);
